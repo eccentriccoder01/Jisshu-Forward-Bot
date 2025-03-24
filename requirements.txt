@@ -1,4 +1,4 @@
-pyrofork
+pyrofork==1.4.16
 motor
 TgCrypto
 Dnspython
@@ -6,7 +6,7 @@ datetime
 pytz
 
 #----app.py----#
-pyrogram==2.0.106
+pyrogram==1.4.16
 Flask==1.1.2
 gunicorn==20.1.0
 Jinja2==3.0.3
