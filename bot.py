@@ -7,6 +7,8 @@ from pyrogram import Client, __version__
 from pyrogram.raw.all import layer 
 from pyrogram.enums import ParseMode
 from pyrogram.errors import FloodWait 
+import typing
+typing.List = list  # Patch for Python 3.8 compatibility
 # bot developer @mr_jisshu
 logging.config.fileConfig('logging.conf')
 logging.getLogger().setLevel(logging.INFO)
