@@ -14,8 +14,8 @@ class Config:
     DATABASE_URI = environ.get("DATABASE_URI", "mongodb+srv://sagnikgraviton847:AutoForward@autoforward.iwsux.mongodb.net/?retryWrites=true&w=majority&appName=AutoForward")
     DATABASE_NAME = environ.get("DATABASE_NAME", "AutoForward")
     
-    LOG_CHANNEL = int(environ.get('LOG_CHANNEL', ''))
-    FORCE_SUB_CHANNEL = environ.get("FORCE_SUB_CHANNEL", "") # FORCE SUB channel link 
+    LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002493411028'))
+    FORCE_SUB_CHANNEL = environ.get("FORCE_SUB_CHANNEL", "-1002313039486") # FORCE SUB channel link 
     FORCE_SUB_ON = environ.get("FORCE_SUB_ON", "True")  # FORCE SUB ON - OFF
 
 
