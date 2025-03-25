@@ -15,7 +15,7 @@ class Config:
     
     LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '2493411028'))
     FORCE_SUB_CHANNEL = environ.get("FORCE_SUB_CHANNEL", "https://t.me/filmdom_updates") # FORCE SUB channel link 
-    FORCE_SUB_ON = environ.get("FORCE_SUB_ON", "True")  # FORCE SUB ON - OFF
+    FORCE_SUB_ON = environ.get("FORCE_SUB_ON", "False")  # FORCE SUB ON - OFF
 
 
 class temp(object): 
