@@ -1,4 +1,3 @@
-# bot developer @mr_jisshu
 import asyncio 
 import time, datetime 
 from database import db 
@@ -47,7 +46,7 @@ async def broadcast_messages(user_id, message, log):
         return await broadcast_messages(user_id, message, log)
     except InputUserDeactivated:
         await db.delete_user(int(user_id))
-        log.info(f"{user_id}-Removed from Database, since deleted account.")
+        log.info(f"{user_id}-Removed from Database, since account is deleted.")
         return False, "Deleted"
     except UserIsBlocked:
         log.info(f"{user_id} -Blocked the bot.")

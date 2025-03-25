@@ -20,12 +20,11 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 BTN_URL_REGEX = re.compile(r"(\[([^\[]+?)]\[buttonurl:/{0,2}(.+?)(:same)?])")
-BOT_TOKEN_TEXT = "<b>1) create a bot using @BotFather\n2) Then you will get a message with bot token\n3) Forward that message to me</b>"
+BOT_TOKEN_TEXT = "<b>1) Create a bot using @BotFather\n2) Then you will get a message with bot token\n3) Forward that message to me</b>"
 SESSION_STRING_SIZE = 351
 
 async def start_clone_bot(FwdBot, data=None):
    await FwdBot.start()
-   # futures add by @Mr_Jisshu
    async def iter_messages(
       self, 
       chat_id: Union[int, str], 
@@ -94,7 +93,7 @@ class CLIENT:
     
     # Ensure the message is a forwarded one
     if not msg.forward_date:
-        return await msg.reply_text("<b>This is not a forward message</b>")
+        return await msg.reply_text("<b>This is not a forwarded message</b>")
     
     # Ensure the message was forwarded from BotFather
     if str(msg.forward_from.id) != "93372553":
@@ -104,7 +103,7 @@ class CLIENT:
     bot_token = re.findall(r'\d{8,10}:[0-9A-Za-z_-]{35}', msg.text, re.IGNORECASE)
     bot_token = bot_token[0] if bot_token else None
     if not bot_token:
-        return await msg.reply_text("<b>There is no bot token in that message</b>")
+        return await msg.reply_text("<b>There is no bot token in the message</b>")
     
     # Attempt to start the clone bot
     try:
@@ -227,7 +226,7 @@ class CLIENT:
     
   async def add_session(self, bot, message):
      user_id = int(message.from_user.id)
-     text = "<b>⚠️ DISCLAIMER ⚠️</b>\n\n<code>you can use your session for forward message from private chat to another chat.\nPlease add your pyrogram session with your own risk. Their is a chance to ban your account. My developer is not responsible if your account may get banned.</code>"
+     text = "<b>⚠️ DISCLAIMER ⚠️</b>\n\n<code>you can use your session to forward messages from private chat to another chat.\nPlease add your pyrogram session at your own risk. Their is a chance tof getting an account ban. My developer is not responsible if your account gets banned.</code>"
      await bot.send_message(user_id, text=text)
      msg = await bot.ask(chat_id=user_id, text="<b>send your pyrogram session.\n\n[If you don't have string session you can use login user bot]\n\n/cancel - cancel the process</b>")
      if msg.text=='/cancel':

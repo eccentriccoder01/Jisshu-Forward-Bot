@@ -25,27 +25,27 @@ async def pub_(bot, message):
     temp.CANCEL[user] = False
     frwd_id = message.data.split("_")[2]
     if temp.lock.get(user) and str(temp.lock.get(user))=="True":
-      return await message.answer("please wait until previous task complete", show_alert=True)
+      return await message.answer("Please wait until previous task completes", show_alert=True)
     sts = STS(frwd_id)
     if not sts.verify():
-      await message.answer("your are clicking on my old button", show_alert=True)
+      await message.answer("You are clicking on the old button", show_alert=True)
       return await message.message.delete()
     i = sts.get(full=True)
     if i.TO in temp.IS_FRWD_CHAT:
-      return await message.answer("In Target chat a task is progressing. please wait until task complete", show_alert=True)
-    m = await msg_edit(message.message, "<b>verifying your data's, please wait..</b>")
+      return await message.answer("In the Target chat a task is progressing. Please wait until the task completes", show_alert=True)
+    m = await msg_edit(message.message, "<b>Verifying your data, please wait..</b>")
     _bot, caption, forward_tag, data, protect, button = await sts.get_data(user)
     if not _bot:
-      return await msg_edit(m, "<b>You didn't added any bot. Please add a bot using /settings !</b>", wait=True)
+      return await msg_edit(m, "<b>You didn't add any bot. Please add a bot using /settings !</b>", wait=True)
     try:
       client = await start_clone_bot(CLIENT.client(_bot))
     except Exception as e:  
       return await m.edit(e)
-    await msg_edit(m, "<b>processing..</b>")
+    await msg_edit(m, "<b>Processing..</b>")
     try: 
        await client.get_messages(sts.get("FROM"), sts.get("limit"))
     except:
-       await msg_edit(m, f"**Source chat may be a private channel / group. Use userbot (user must be member over there) or  if Make Your [Bot](t.me/{_bot['username']}) an admin over there**", retry_btn(frwd_id), True)
+       await msg_edit(m, f"**Source chat may be a private channel / group. Use userbot (user must be member over there) or Make Your [Bot](t.me/{_bot['username']}) an admin over there**", retry_btn(frwd_id), True)
        return await stop(client, user)
     try:
        k = await client.send_message(i.TO, "Testing")
@@ -55,7 +55,7 @@ async def pub_(bot, message):
        return await stop(client, user)
     temp.forwardings += 1
     await db.add_frwd(user)
-    await send(client, user, "<b>🚥 ғᴏʀᴡᴀʀᴅɪɴɢ sᴛᴀʀᴛᴇᴅ via <a href=https://t.me/Jisshu_forward_bot>Forward Bot</a></b>")
+    await send(client, user, "<b>🚥 ғᴏʀᴡᴀʀᴅɪɴɢ sᴛᴀʀᴛᴇᴅ via <a href=https://t.me/FilmdomForwardBot>Forward Bot</a></b>")
     sts.add(time=True)
     sleep = 1 if _bot['is_bot'] else 10
     await msg_edit(m, "<b>Processing...</b>") 
@@ -109,7 +109,7 @@ async def pub_(bot, message):
             temp.IS_FRWD_CHAT.remove(sts.TO)
             return await stop(client, user)
         temp.IS_FRWD_CHAT.remove(sts.TO)
-        await send(client, user, "<b>🎉 ғᴏʀᴡᴀᴅɪɴɢ ᴄᴏᴍᴘʟᴇᴛᴇᴅ</b>")
+        await send(client, user, "<b>🎉 ғᴏʀᴡᴀʀᴅɪɴɢ ᴄᴏᴍᴘʟᴇᴛᴇᴅ</b>")
         await edit(m, 'Completed', "completed", sts) 
         await stop(client, user)
             
@@ -153,19 +153,19 @@ async def forward(bot, msg, m, sts, protect):
      await forward(bot, msg, m, sts, protect)
 
 PROGRESS = """
-📈 Percetage: {0} %
+📈 Percentage: {0} %
 
 ♻️ Feched: {1}
 
-♻️ Fowarded: {2}
+♻️ Forwarded: {2}
 
 ♻️ Remaining: {3}
 
-♻️ Stataus: {4}
+♻️ Status: {4}
 
 ⏳️ ETA: {5}
 
-My Developer @Mr_Jisshu
+My Developer @Filmdom_Bot
 """
 
 async def msg_edit(msg, text, button=None, wait=None):
@@ -199,8 +199,8 @@ async def edit(msg, title, status, sts):
    text = TEXT.format(i.fetched, i.total_files, i.duplicate, i.deleted, i.skip, status, percentage, estimated_total_time, status)
    if status in ["cancelled", "completed"]:
       button.append(
-         [InlineKeyboardButton('Support', url='https://t.me/Jisshu_support'),
-         InlineKeyboardButton('Updates', url='https://t.me/JISSHU_BOTS')]
+         [InlineKeyboardButton('Support', url='https://t.me/filmdom_support'),
+         InlineKeyboardButton('Updates', url='https://t.me/Filmdom_Updates')]
          )
    else:
       button.append([InlineKeyboardButton('• ᴄᴀɴᴄᴇʟ', 'terminate_frwd')])

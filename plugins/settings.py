@@ -14,7 +14,7 @@ async def settings(client, message):
    await message.reply_photo(
       photo=Config.PICS,
       reply_markup=main_buttons(),
-      caption="<b>change your settings as your wish</b>"      
+      caption="<b>Change your settings as your wish</b>"      
      )
     
 @Client.on_callback_query(filters.regex(r'^settings'))
@@ -25,7 +25,7 @@ async def settings_query(bot, query):
   
   if type=="main":
      await query.message.edit_text(
-       "<b>change your settings as your wish</b>",
+       "<b>Change your settings as your wish</b>",
        reply_markup=main_buttons())
        
   elif type=="bots":
@@ -249,7 +249,7 @@ async def settings_query(bot, query):
   elif type=="deletebutton":
      await update_configs(user_id, 'button', None)
      await query.message.edit_text(
-        "**Successfully button deleted**",
+        "*Button successfully deleted**",
         reply_markup=InlineKeyboardMarkup(buttons))
    
   elif type=="database":
@@ -266,7 +266,7 @@ async def settings_query(bot, query):
      buttons.append([InlineKeyboardButton('↩ Back', 
                       callback_data="settings#main")])
      await query.message.edit_text(
-        "<b><u>DATABASE</u>\n\nDatabase is required for store your duplicate messages permenant. other wise stored duplicate media may be disappeared when after bot restart.</b>",
+        "<b><u>DATABASE</u>\n\nDatabase is required for store your duplicate messages permanently. Otherwise stored duplicate media may disappear when the bot restarts.</b>",
         reply_markup=InlineKeyboardMarkup(buttons))
 
   elif type=="addurl":
@@ -329,7 +329,7 @@ async def settings_query(bot, query):
     await update_configs(user_id, 'file_size', size)
     i, limit = size_limit((await get_configs(user_id))['size_limit'])
     await query.message.edit_text(
-       f'<b><u>SIZE LIMIT</b></u><b>\n\nyou can set file size limit to forward\n\nStatus: files with {limit} `{size} MB` will forward</b>',
+       f'<b><u>SIZE LIMIT</b></u><b>\n\nyou can set file size limit to forward\n\nStatus: files with {limit} `{size} MB` will be forwarded</b>',
        reply_markup=size_button(size))
   
   elif type.startswith('update_limit'):
@@ -337,15 +337,15 @@ async def settings_query(bot, query):
     limit, sts = size_limit(limit)
     await update_configs(user_id, 'size_limit', limit) 
     await query.message.edit_text(
-       f'<b><u>SIZE LIMIT</b></u><b>\n\nyou can set file size limit to forward\n\nStatus: files with {sts} `{size} MB` will forward</b>',
+       f'<b><u>SIZE LIMIT</b></u><b>\n\nyou can set file size limit to forward\n\nStatus: files with {sts} `{size} MB` will be forwarded</b>',
        reply_markup=size_button(int(size)))
       
   elif type == "add_extension":
     await query.message.delete() 
-    ext = await bot.ask(user_id, text="**please send your extensions (seperete by space)**")
+    ext = await bot.ask(user_id, text="**please send your extensions (separate by space)**")
     if ext.text == '/cancel':
        return await ext.reply_text(
-                  "<b>process canceled</b>",
+                  "<b>Process Cancelled</b>",
                   reply_markup=InlineKeyboardMarkup(buttons))
     extensions = ext.text.split(" ")
     extension = (await get_configs(user_id))['extension']
@@ -356,7 +356,7 @@ async def settings_query(bot, query):
         extension = extensions
     await update_configs(user_id, 'extension', extension)
     await ext.reply_text(
-        f"**successfully updated**",
+        f"**Successfully Updated**",
         reply_markup=InlineKeyboardMarkup(buttons))
       
   elif type == "get_extension":
@@ -366,7 +366,7 @@ async def settings_query(bot, query):
     btn.append([InlineKeyboardButton('Remove all', 'settings#rmve_all_extension')])
     btn.append([InlineKeyboardButton('↩ Back', 'settings#main')])
     await query.message.edit_text(
-        text='<b><u>EXTENSIONS</u></b>\n\n**Files with these extiontions will not forward**',
+        text='<b><u>EXTENSIONS</u></b>\n\n**Files with these extensions will not be forwarded**',
         reply_markup=InlineKeyboardMarkup(btn))
   
   elif type == "rmve_all_extension":
@@ -375,7 +375,7 @@ async def settings_query(bot, query):
                                    reply_markup=InlineKeyboardMarkup(buttons))
   elif type == "add_keyword":
     await query.message.delete()
-    ask = await bot.ask(user_id, text="**please send the keywords (seperete by space)**")
+    ask = await bot.ask(user_id, text="**Please send the keywords (separate by space)**")
     if ask.text == '/cancel':
        return await ask.reply_text(
                   "<b>process canceled</b>",
@@ -389,7 +389,7 @@ async def settings_query(bot, query):
         keyword = keywords
     await update_configs(user_id, 'keywords', keyword)
     await ask.reply_text(
-        f"**successfully updated**",
+        f"**Successfully updated**",
         reply_markup=InlineKeyboardMarkup(buttons))
   
   elif type == "get_keyword":
@@ -399,12 +399,12 @@ async def settings_query(bot, query):
     btn.append([InlineKeyboardButton('Remove all', 'settings#rmve_all_keyword')])
     btn.append([InlineKeyboardButton('↩ Back', 'settings#main')])
     await query.message.edit_text(
-        text='<b><u>KEYWORDS</u></b>\n\n**File with these keywords in file name will forwad**',
+        text='<b><u>KEYWORDS</u></b>\n\n**Files with these keywords in file name will be forwarded**',
         reply_markup=InlineKeyboardMarkup(btn))
       
   elif type == "rmve_all_keyword":
     await update_configs(user_id, 'keywords', None)
-    await query.message.edit_text(text="**successfully deleted**",
+    await query.message.edit_text(text="**Successfully deleted**",
                                    reply_markup=InlineKeyboardMarkup(buttons))
   elif type.startswith("alert"):
     alert = type.split('_')[1]
@@ -583,7 +583,5 @@ async def next_filters_buttons(user_id):
                     callback_data="settings#main")
        ]]
   return InlineKeyboardMarkup(buttons) 
-
-  # powered by @JISSHU_BOTS
 
   

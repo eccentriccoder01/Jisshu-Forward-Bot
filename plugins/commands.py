@@ -12,8 +12,8 @@ from pyrogram.types import *
 TIMEZONE = "Asia/Kolkata"
 
 main_buttons = [[
-        InlineKeyboardButton('🦋 ᴜᴘᴅᴀᴛᴇs ', url='https://t.me/JISSHU_BOTS'),
-        InlineKeyboardButton(' sᴜᴘᴘᴏʀᴛ ✨', url='https://t.me/Jisshu_support')
+        InlineKeyboardButton('🦋 ᴜᴘᴅᴀᴛᴇs ', url='https://t.me/Filmdom_Updates'),
+        InlineKeyboardButton(' sᴜᴘᴘᴏʀᴛ ✨', url='https://t.me/Filmdom_support')
         ],[
         InlineKeyboardButton('🛠️ ʜᴇʟᴘ', callback_data='help'),
         InlineKeyboardButton(' ᴀʙᴏᴜᴛ 😎', callback_data='about')
@@ -25,62 +25,49 @@ main_buttons = [[
 @Client.on_message(filters.private & filters.command(['start']))
 async def start(client, message):
     user = message.from_user
+
     if Config.FORCE_SUB_ON:
-        # Check if the user has joined the force subscription channel
         try:
             member = await client.get_chat_member(Config.FORCE_SUB_CHANNEL, user.id)
-            if member.status == "kicked":
-                await client.send_message(
-                    chat_id=message.chat.id,
-                    text="You are banned from using this bot.",
-                )
+            if member.status in ["kicked", "banned"]:
+                await message.reply_text("You are banned from using this bot.")
                 return
-        except:
-            # Send a message asking the user to join the channel
+            elif member.status not in ["member", "administrator", "creator"]:
+                raise ValueError("User is not a valid member")  # Force handling
+        except Exception as e:
+            print(f"Subscription check error: {e}")  # Debugging log
             join_button = [
-                [InlineKeyboardButton("Join Channel", url=f"{Config.FORCE_SUB_CHANNEL}")],
-                [InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", url=f"https://t.me/{client.username}?start=start")]
+                [InlineKeyboardButton("Join Channel", url=f"https://t.me/{Config.FORCE_SUB_CHANNEL}")],
+                [InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", callback_data="start")]
             ]
-            await client.send_message(
-                chat_id=message.chat.id,
-                text="Please join our channel to use this bot.",
+            await message.reply_text(
+                "Please join our channel to use this bot.",
                 reply_markup=InlineKeyboardMarkup(join_button)
             )
             return
 
+    # Continue normal execution if subscribed
     if not await db.is_user_exist(user.id):
         await db.add_user(user.id, message.from_user.mention)
-        # Log the new user to the log channel
-        log_channel = Config.LOG_CHANNEL # Replace with your log channel ID
-        await client.send_message(
-            chat_id=log_channel,
-            text=f"#NewUser\n\nIᴅ - {user.id}\nNᴀᴍᴇ - {message.from_user.mention}"
-        )
+        log_channel = Config.LOG_CHANNEL
+        await client.send_message(log_channel, f"#NewUser\n\nID - {user.id}\nName - {message.from_user.mention}")
 
     reply_markup = InlineKeyboardMarkup(main_buttons)
     current_time = datetime.now(pytz.timezone(TIMEZONE))
     curr_time = current_time.hour        
-    if curr_time < 12:
-        gtxt = "ɢᴏᴏᴅ ᴍᴏʀɴɪɴɢ 🌞" 
-    elif curr_time < 17:
-        gtxt = "ɢᴏᴏᴅ ᴀғᴛᴇʀɴᴏᴏɴ 🌗" 
-    elif curr_time < 21:
-        gtxt = "ɢᴏᴏᴅ ᴇᴠᴇɴɪɴɢ 🌘"
-    else:
-        gtxt = "ɢᴏᴏᴅ ɴɪɢʜᴛ 🌑"
-    await client.send_photo(
-        chat_id=message.chat.id,
-        photo=Config.PICS,
-        reply_markup=reply_markup,
-        caption=Translation.START_TXT.format(message.from_user.mention, gtxt)
-    )
+    gtxt = ("ɢᴏᴏᴅ ᴍᴏʀɴɪɴɢ 🌞" if curr_time < 12 else
+            "ɢᴏᴏᴅ ᴀғᴛᴇʀɴᴏᴏɴ 🌗" if curr_time < 17 else
+            "ɢᴏᴏᴅ ᴇᴠᴇɴɪɴɢ 🌘" if curr_time < 21 else
+            "ɢᴏᴏᴅ ɴɪɢʜᴛ 🌑")
+
+    await message.reply_photo(Config.PICS, caption=Translation.START_TXT.format(user.mention, gtxt), reply_markup=reply_markup)
 
 #==================Restart Function==================#
 
 @Client.on_message(filters.private & filters.command(['restart']) & filters.user(Config.BOT_OWNER_ID))
 async def restart(client, message):
     msg = await message.reply_text(
-        text="<i>Trying to restarting.....</i>"
+        text="<i>Trying to restart...</i>"
     )
     await asyncio.sleep(5)
     await msg.edit("<i>Server restarted successfully ✅</i>")
@@ -134,7 +121,7 @@ async def back(bot, query):
 async def about(bot, query):
     await query.message.edit_media(
         media=InputMediaPhoto(
-        media="https://graph.org/file/e223aea8aca83e99162bb.jpg",
+        media="https://i.pinimg.com/1200x/8e/36/25/8e3625932677d5623a54c9aa3ff4b74a.jpg",
         caption=Translation.ABOUT_TXT),
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('⛔ Back', callback_data='back')]])
         )

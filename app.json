@@ -1,8 +1,8 @@
 
 {
-  "name": "Auto-Forward-Bot-V2",
+  "name": "Filmdom-Auto-Forward-Bot",
   "description": "Telegram's Best Smart Plugin File Forward Bot",
-  "logo": "https://telegra.ph/file/5c3499c3b2ec282cf0c4e.jpg",
+  "logo": "https://i.pinimg.com/1200x/8e/36/25/8e3625932677d5623a54c9aa3ff4b74a.jpg",
   "stack": "container",
   "keywords": [
     "telegram",
@@ -11,9 +11,9 @@
     "forward",
     "bot"
   ],
-  "success_url": "https://t.me/DForDarkAngel",
-  "website": "https://github.com/SadKidBGMZ/fwdbot",
-  "repository": "https://github.com/SadKidBGMZ/fwdbot",
+  "success_url": "https://t.me/Filmdom_Updates",
+  "website": "https://github.com/eccentriccoder01/Jisshu-Forward-Bot",
+  "repository": "https://github.com/eccentriccoder01/Jisshu-Forward-Bot",
   "env": {
     "API_ID": {
       "description": "Get this value from https://my.telegram.org or @UseTGSBot",

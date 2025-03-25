@@ -19,10 +19,10 @@ async def run(bot, message):
     user_id = message.from_user.id
     _bot = await db.get_bot(user_id)
     if not _bot:
-      return await message.reply("<code>You didn't added any bot. Please add a bot using /settings !</code>")
+      return await message.reply("<code>You didn't add any bot. Please add a bot using /settings !</code>")
     channels = await db.get_user_channels(user_id)
     if not channels:
-       return await message.reply_text("please set a to channel in /settings before forwarding")
+       return await message.reply_text("please set a channel in /settings before forwarding")
     if len(channels) > 1:
        for channel in channels:
           buttons.append([KeyboardButton(f"{channel['title']}")])
@@ -55,7 +55,7 @@ async def run(bot, message):
         last_msg_id = fromid.forward_from_message_id
         chat_id = fromid.forward_from_chat.username or fromid.forward_from_chat.id
         if last_msg_id == None:
-           return await message.reply_text("**This may be a forwarded message from a group and sended by anonymous admin. instead of this please send last message link from group**")
+           return await message.reply_text("**This may be a forwarded message from a group and sent by anonymous admin. Instead of this, please send the last message link from group**")
     else:
         await message.reply_text("**invalid !**")
         return 

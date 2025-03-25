@@ -9,7 +9,6 @@ from pyrogram.enums import ParseMode
 from pyrogram.errors import FloodWait 
 import typing
 typing.List = list  # Patch for Python 3.8 compatibility
-# bot developer @mr_jisshu
 logging.config.fileConfig('logging.conf')
 logging.getLogger().setLevel(logging.INFO)
 logging.getLogger("pyrogram").setLevel(logging.ERROR)
@@ -62,4 +61,3 @@ class Bot(Client):
         msg = f"@{self.username} stopped. Bye."
         await super().stop()
         logging.info(msg)
-   # bot developer @mr_jisshu
