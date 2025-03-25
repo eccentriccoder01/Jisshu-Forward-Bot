@@ -33,7 +33,7 @@ async def start(client, message):
             if status.status in ["left", "kicked"]:
                 # User is not subscribed, show join button
                 join_button = [
-                    [InlineKeyboardButton("Join Channel", url=f"{Config.FORCE_SUB_CHANNEL}")],
+                    [InlineKeyboardButton("Join Channel", url=f"https://t.me/{Config.FORCE_SUB_CHANNEL}")],
                     [InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", url=f"https://t.me/{client.username}?start=start")]
                 ]
                 reply_markup = InlineKeyboardMarkup(join_button)
@@ -43,12 +43,26 @@ async def start(client, message):
                     reply_markup=reply_markup
                 )
                 return
+        except UserNotParticipant:
+            # User has never joined the channel
+            join_button = [
+                [InlineKeyboardButton("Join Channel", url=f"https://t.me/{Config.FORCE_SUB_CHANNEL}")],
+                [InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", url=f"https://t.me/{client.username}?start=start")]
+            ]
+            reply_markup = InlineKeyboardMarkup(join_button)
+            await message.reply_photo(
+                photo=Config.PICS,
+                caption="**Please Join My Updates Channel to use this Bot!**",
+                reply_markup=reply_markup
+            )
+            return
         except Exception as e:
             print(f"Force sub check error: {e}")
-            await message.reply("Error checking subscription status. Please try again later.")
-            return
+            # If there's an error, we'll let the user proceed anyway
+            # You can remove this if you want to block access when the check fails
+            pass
 
-    # Continue normal execution if subscribed
+    # Continue normal execution if subscribed or check failed
     if not await db.is_user_exist(user.id):
         await db.add_user(user.id, message.from_user.mention)
         log_channel = Config.LOG_CHANNEL
