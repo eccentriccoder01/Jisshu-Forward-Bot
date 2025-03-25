@@ -25,29 +25,28 @@ main_buttons = [[
 @Client.on_message(filters.private & filters.command(['start']))
 async def start(client, message):
     user = message.from_user
-
-    # if Config.FORCE_SUB_ON:
-    #     try:
-    #         member = await client.get_chat_member(Config.FORCE_SUB_CHANNEL, user.id)
-    #         if member.status == "kicked":
-    #             await client.send_message(
-    #                 chat_id=message.chat.id,
-    #                 text="You are banned from using this bot.",
-    #             )
-    #             return
-    #     except:
-    #         # Send a message asking the user to join the channel
-    #         join_button = [
-    #             [InlineKeyboardButton("Join Channel", url=f"{Config.FORCE_SUB_CHANNEL}")],
-    #             [InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", url=f"https://t.me/{client.username}?start=start")]
-    #         ]
-    #         await client.send_message(
-    #             chat_id=message.chat.id,
-    #             text="Please join our channel to use this bot.",
-    #             reply_markup=InlineKeyboardMarkup(join_button)
-    #         )
-    #         return
-
+    
+    if Config.FORCE_SUB_ON:
+        try:
+            # Check if user is subscribed to the channel
+            status = await client.get_chat_member(Config.FORCE_SUB_CHANNEL, user.id)
+            if status.status in ["left", "kicked"]:
+                # User is not subscribed, show join button
+                join_button = [
+                    [InlineKeyboardButton("Join Channel", url=f"{Config.FORCE_SUB_CHANNEL}")],
+                    [InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", url=f"https://t.me/{client.username}?start=start")]
+                ]
+                reply_markup = InlineKeyboardMarkup(join_button)
+                await message.reply_photo(
+                    photo=Config.PICS,
+                    caption="**Please Join My Updates Channel to use this Bot!**",
+                    reply_markup=reply_markup
+                )
+                return
+        except Exception as e:
+            print(f"Force sub check error: {e}")
+            await message.reply("Error checking subscription status. Please try again later.")
+            return
 
     # Continue normal execution if subscribed
     if not await db.is_user_exist(user.id):
