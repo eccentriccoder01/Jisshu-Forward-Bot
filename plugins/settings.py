@@ -90,7 +90,7 @@ async def settings_query(bot, query):
      await query.message.delete()
      try:
          text = await bot.send_message(user_id, "<b>❪ SET TARGET CHAT ❫\n\nForward a message from Your target chat\n/cancel - cancel this process</b>")
-         chat_ids = await bot.listen(chat_id=user_id, timeout=300)
+         chat_ids = await bot.listen(chat_id=user_id, timeout=30000)
          if chat_ids.text=="/cancel":
             await chat_ids.delete()
             return await text.edit_text(
@@ -98,7 +98,7 @@ async def settings_query(bot, query):
                   reply_markup=InlineKeyboardMarkup(buttons))
          elif not chat_ids.forward_date:
             await chat_ids.delete()
-            return await text.edit_text("**This is not a forward message**")
+            return await text.edit_text("**This is not a forwarded message**")
          else:
             chat_id = chat_ids.forward_from_chat.id
             title = chat_ids.forward_from_chat.title
