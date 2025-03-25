@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://graph.org/file/e223aea8aca83e99162bb.jpg"/>
+<img src="https://i.pinimg.com/1200x/b1/23/10/b12310195a44c3ccee8d6b9a4a914a07.jpg"/>
 <img src="https://github.com/AnonymousX1025/AnonymousX1025/blob/master/resources/hr.gif"/>
 
 ### FEATURES
@@ -8,12 +8,11 @@
  - Supports Broadcasts.
  - Set custom caption.
  - Custom Button.
- - Support Restricted Chats.
+ - Supports Restricted Chats.
  - Skip Duplicate Messages.
  - Filter Type Of Messages.
- - Skip Messages Based On Extensions & Keywords & Size.
- - Deploy to Koyeb + Heroku + Railway.
- - Developer ZISHAN.
+ - Skip Messages Based On Extensions, Keywords & Size.
+ - Deploy to Koyeb / Heroku / Railway / Render
 
 <img src="https://github.com/AnonymousX1025/AnonymousX1025/blob/master/resources/hr.gif"/>
 
@@ -65,7 +64,7 @@
 ```
 start - Start the bot.
 forward - Forward messages.
-unequify - Delete dublicate files in channel.
+unequify - Delete duplicate files in channel.
 settings - Configure your settings.
 cancel - Cancel ongoing forwarding.
 stats - To check bot stats (Admin Only)
@@ -77,9 +76,9 @@ restart - Restart the bot (Admin Only)
 [<img src="https://github.com/AnonymousX1025/AnonymousX1025/blob/master/resources/hr.gif"/>](https://github.com/Jisshubot)
 
 <img src="https://github.com/Jisshubot/Jisshubot/blob/master/resources/hr.gif"/>
-<h1> <img src="https://graph.org/file/9b3bac6be700d65e96c7b.jpg" width="70px" style="border-radius: 50%"> ᴄᴏɴᴛᴀᴄᴛ ᴍᴇ </h1>
+<h1> <img src="https://i.pinimg.com/1200x/8e/36/25/8e3625932677d5623a54c9aa3ff4b74a.jpg" width="70px" style="border-radius: 50%"> ᴄᴏɴᴛᴀᴄᴛ ᴍᴇ </h1>
   
-[<img src="https://raw.githubusercontent.com/Jisshubot/Jisshubot/master/resources/telegram_icon.png" width="60px">](https://telegram.im/@JISSHU_BOTS) [<img src="https://raw.githubusercontent.com/AnonymousX1025/AnonymousX1025/master/resources/github_icon.png" width="60px">](https://github.com/Jisshubot) [<img src="https://raw.githubusercontent.com/AnonymousX1025/AnonymousX1025/master/resources/youtube_icon.png" width="60px">](https://www.youtube.com/@JISSHU-BOTS) [<img src="https://github.com/AnonymousX1025/AnonymousX1025/blob/master/resources/insta_icon.png" width="60px">](https://instagram.com/Zishan_khan565)
+[<img src="https://raw.githubusercontent.com/Jisshubot/Jisshubot/master/resources/telegram_icon.png" width="60px">](https://telegram.im/@EccentricExplorerBot) [<img src="https://raw.githubusercontent.com/AnonymousX1025/AnonymousX1025/master/resources/github_icon.png" width="60px">](https://github.com/eccentriccoder01) [<img src="https://github.com/AnonymousX1025/AnonymousX1025/blob/master/resources/insta_icon.png" width="60px">](https://instagram.com/mr.eec.entric)
 
-[<img src="https://github.com/AnonymousX1025/AnonymousX1025/blob/master/resources/hr.gif"/>](https://github.com/Jisshubot)
+[<img src="https://github.com/AnonymousX1025/AnonymousX1025/blob/master/resources/hr.gif"/>](https://github.com/eccentriccoder01)
 

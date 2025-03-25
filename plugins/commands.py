@@ -25,44 +25,31 @@ main_buttons = [[
 @Client.on_message(filters.private & filters.command(['start']))
 async def start(client, message):
     user = message.from_user
-    
-    if Config.FORCE_SUB_ON:
-        try:
-            # Check if user is subscribed to the channel
-            status = await client.get_chat_member(Config.FORCE_SUB_CHANNEL, user.id)
-            if status.status in ["left", "kicked"]:
-                # User is not subscribed, show join button
-                join_button = [
-                    [InlineKeyboardButton("Join Channel", url=f"https://t.me/{Config.FORCE_SUB_CHANNEL}")],
-                    [InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", url=f"https://t.me/{client.username}?start=start")]
-                ]
-                reply_markup = InlineKeyboardMarkup(join_button)
-                await message.reply_photo(
-                    photo=Config.PICS,
-                    caption="**Please Join My Updates Channel to use this Bot!**",
-                    reply_markup=reply_markup
-                )
-                return
-        except UserNotParticipant:
-            # User has never joined the channel
-            join_button = [
-                [InlineKeyboardButton("Join Channel", url=f"https://t.me/{Config.FORCE_SUB_CHANNEL}")],
-                [InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", url=f"https://t.me/{client.username}?start=start")]
-            ]
-            reply_markup = InlineKeyboardMarkup(join_button)
-            await message.reply_photo(
-                photo=Config.PICS,
-                caption="**Please Join My Updates Channel to use this Bot!**",
-                reply_markup=reply_markup
-            )
-            return
-        except Exception as e:
-            print(f"Force sub check error: {e}")
-            # If there's an error, we'll let the user proceed anyway
-            # You can remove this if you want to block access when the check fails
-            pass
 
-    # Continue normal execution if subscribed or check failed
+    # if Config.FORCE_SUB_ON:
+    #     try:
+    #         member = await client.get_chat_member(Config.FORCE_SUB_CHANNEL, user.id)
+    #         if member.status == "kicked":
+    #             await client.send_message(
+    #                 chat_id=message.chat.id,
+    #                 text="You are banned from using this bot.",
+    #             )
+    #             return
+    #     except:
+    #         # Send a message asking the user to join the channel
+    #         join_button = [
+    #             [InlineKeyboardButton("Join Channel", url=f"{Config.FORCE_SUB_CHANNEL}")],
+    #             [InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", url=f"https://t.me/{client.username}?start=start")]
+    #         ]
+    #         await client.send_message(
+    #             chat_id=message.chat.id,
+    #             text="Please join our channel to use this bot.",
+    #             reply_markup=InlineKeyboardMarkup(join_button)
+    #         )
+    #         return
+
+
+    # Continue normal execution if subscribed
     if not await db.is_user_exist(user.id):
         await db.add_user(user.id, message.from_user.mention)
         log_channel = Config.LOG_CHANNEL
@@ -137,7 +124,7 @@ async def back(bot, query):
 async def about(bot, query):
     await query.message.edit_media(
         media=InputMediaPhoto(
-        media="https://i.pinimg.com/1200x/8e/36/25/8e3625932677d5623a54c9aa3ff4b74a.jpg",
+        media="https://i.pinimg.com/1200x/b1/23/10/b12310195a44c3ccee8d6b9a4a914a07.jpg",
         caption=Translation.ABOUT_TXT),
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton('⛔ Back', callback_data='back')]])
         )

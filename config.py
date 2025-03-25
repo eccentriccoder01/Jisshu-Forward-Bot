@@ -8,7 +8,7 @@ class Config:
     BOT_OWNER_ID = [int(id) for id in environ.get("BOT_OWNER_ID", '6713601081').split()]
     BOT_SESSION = environ.get("BOT_SESSION", "bot") 
 
-    PICS = (environ.get('PICS', 'https://i.pinimg.com/1200x/8e/36/25/8e3625932677d5623a54c9aa3ff4b74a.jpg'))
+    PICS = (environ.get('PICS', 'https://i.pinimg.com/1200x/b1/23/10/b12310195a44c3ccee8d6b9a4a914a07.jpg'))
     
     DATABASE_URI = environ.get("DATABASE_URI", "mongodb+srv://sagnikgraviton847:AutoForward@autoforward.iwsux.mongodb.net/?retryWrites=true&w=majority&appName=AutoForward")
     DATABASE_NAME = environ.get("DATABASE_NAME", "AutoForward")
