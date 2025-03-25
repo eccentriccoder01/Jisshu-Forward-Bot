@@ -29,19 +29,21 @@ async def start(client, message):
     if Config.FORCE_SUB_ON:
         try:
             member = await client.get_chat_member(Config.FORCE_SUB_CHANNEL, user.id)
-            if member.status in [enums.ChatMemberStatus.BANNED, enums.ChatMemberStatus.RESTRICTED]:
-                await message.reply_text("You are banned from using this bot.")
+            if member.status == "kicked":
+                await client.send_message(
+                    chat_id=message.chat.id,
+                    text="You are banned from using this bot.",
+                )
                 return
-            elif member.status not in [enums.ChatMemberStatus.MEMBER, enums.ChatMemberStatus.ADMINISTRATOR, enums.ChatMemberStatus.OWNER]:
-                raise ValueError("User is not a valid member")  # Force handling
-        except Exception as e:
-            print(f"Subscription check error: {e}")  # Debugging log
+        except:
+            # Send a message asking the user to join the channel
             join_button = [
-                [InlineKeyboardButton("Join Channel", url=f"https://t.me/{Config.FORCE_SUB_CHANNEL}")],
-                [InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", callback_data="start")]
+                [InlineKeyboardButton("Join Channel", url=f"{Config.FORCE_SUB_CHANNEL}")],
+                [InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ", url=f"https://t.me/{client.username}?start=start")]
             ]
-            await message.reply_text(
-                "Please join our channel to use this bot.",
+            await client.send_message(
+                chat_id=message.chat.id,
+                text="Please join our channel to use this bot.",
                 reply_markup=InlineKeyboardMarkup(join_button)
             )
             return
