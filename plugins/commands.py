@@ -29,10 +29,10 @@ async def start(client, message):
     if Config.FORCE_SUB_ON:
         try:
             member = await client.get_chat_member(Config.FORCE_SUB_CHANNEL, user.id)
-            if member.status in ["kicked", "banned"]:
+            if member.status in [enums.ChatMemberStatus.BANNED, enums.ChatMemberStatus.RESTRICTED]:
                 await message.reply_text("You are banned from using this bot.")
                 return
-            elif member.status not in ["member", "administrator", "creator"]:
+            elif member.status not in [enums.ChatMemberStatus.MEMBER, enums.ChatMemberStatus.ADMINISTRATOR, enums.ChatMemberStatus.OWNER]:
                 raise ValueError("User is not a valid member")  # Force handling
         except Exception as e:
             print(f"Subscription check error: {e}")  # Debugging log
@@ -45,6 +45,7 @@ async def start(client, message):
                 reply_markup=InlineKeyboardMarkup(join_button)
             )
             return
+
 
     # Continue normal execution if subscribed
     if not await db.is_user_exist(user.id):
